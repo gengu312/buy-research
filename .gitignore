@@ -1,0 +1,11 @@
+# OS & editor files
+.DS_Store
+._*
+Thumbs.db
+
+# Local notes, scratch files & temporary captures (keep private research out of git)
+local/
+notes/
+scratch/
+tmp/
+*.local.md
