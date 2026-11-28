@@ -1,12 +1,19 @@
-# 买前调研 · buy-research
+# buy-research · 买前调研
 
-给支持 Agent Skills 的助手装上这个中文技能，可以从“家里的东西用着不顺手”一路讨论到“这个规格、这个价，现在值得买吗”。也可以带着商品链接、购物车价格或两个现成候选，从中间开始。
+<p>
+  <a href="./README.md"><img src="https://img.shields.io/badge/Docs-English-2563EB?style=flat-square" alt="English" /></a>
+  <a href="./README.zh-CN.md"><img src="https://img.shields.io/badge/%E6%96%87%E6%A1%A3-%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-64748B?style=flat-square" alt="简体中文" /></a>
+</p>
 
-比如，买一个能推到桌下的收纳车时，助手会查装上轮子和盖子后的总高。你后来决定必须保留轮子，它会更新候选。等你挑好具体款式，再算哪家便宜、值不值得为一张券凑单。
+Install this Chinese shopping-research Agent Skill into any assistant that supports Agent Skills (`SKILL.md`) to work all the way from *"something at home feels awkward to use"* to *"at this exact spec and price, is it worth buying right now?"* You can also jump in mid-way with product links, cart totals, or two shortlisted candidates.
 
-## 在 Codex 中使用
+For example, when shopping for a rolling storage cart that slides under a desk, the assistant checks the total assembled height **with both casters and lid installed**. If you later decide keeping the casters is non-negotiable, it updates the candidate list accordingly. Once you settle on an exact variant, it calculates which store is cheaper and whether padding an order just to hit a coupon threshold is actually worth it.
 
-在 macOS 或 Linux 上，首次安装可以运行以下命令。仓库目录需要保留，个人技能目录里的链接指向这里。
+> **Language Note**: `buy-research` is a Simplified Chinese skill designed around Chinese e-commerce realities (multi-variant SKU traps, mixed-spec shipping, platform coupons, and order-padding math). Prompt examples below keep the original Chinese invocations alongside English explanations.
+
+## Use in Codex
+
+On macOS or Linux, run the commands below for first-time installation. Keep the cloned repository directory in place, since the symlink inside your personal skills directory points to it.
 
 ```sh
 git clone https://github.com/gengu312/buy-research.git
@@ -14,24 +21,28 @@ mkdir -p "$HOME/.agents/skills"
 ln -s "$(pwd)/buy-research/skills/buy-research" "$HOME/.agents/skills/buy-research"
 ```
 
-在新会话中输入：
+In a new session, enter:
 
 ```text
 $buy-research 我家桌下净高 70 厘米，想买个带盖的收纳车。帮我找装上轮子也放得进去的，预算 120 元。
 ```
 
-选好型号后可以接着问：
+*English meaning: `"$buy-research Under-desk clearance at home is 70 cm, and I want a lidded storage cart. Help me find options that still fit with the wheels installed, budget 120 RMB."`*
+
+After choosing a model/variant, follow up with:
 
 ```text
 这款我选好规格后显示 98 元包邮，明天有满减，但要再买一件。只想买收纳车的话，值得等吗？
 ```
 
-更新时在克隆的仓库目录里运行 `git pull --ff-only`。其他支持 Agent Skills 的工具，可将 [skills/buy-research](skills/buy-research) 放进其技能目录，保持内部文件结构。直接阅读也可以从 [SKILL.md](skills/buy-research/SKILL.md) 开始。
+*English meaning: `"After selecting my exact spec, this one shows 98 RMB with free shipping. Tomorrow there's a spend-threshold discount, but it requires buying one more item. If I only want the storage cart, is it worth waiting?"`*
 
-## 能查到什么
+To update later, run `git pull --ff-only` inside the cloned repository directory. For other tools that support Agent Skills, place [skills/buy-research](skills/buy-research) into their skills directory while keeping its internal file structure intact. To read the skill directly, start from [SKILL.md](skills/buy-research/SKILL.md).
 
-实时查价需要宿主提供联网搜索或网页读取。助手会标出查到的渠道、具体款式、查询日期和可购买条件。遇到地区库存或个人会员券，提供实选规格和结算明细就够了。仅有商品资料时，仍可以比较尺寸、找规格冲突和计算优惠。这个技能本身不需要 API 密钥。
+## What It Can Check
 
-## 来源与许可
+Live price lookups require the host assistant to provide web search or web page fetching. The assistant notes the queried channel, exact SKU/variant, lookup date, and purchase eligibility conditions. When encountering regional stock limits or personal membership coupons, providing your selected spec and checkout breakdown is enough. Even with pasted product details alone, it can still compare dimensions, catch spec conflicts, and calculate net discounts. This skill itself requires no API keys.
 
-选购流程参考了 [ai_shopping_assistant_skill 的这个版本](https://github.com/jade888jgj/ai_shopping_assistant_skill/tree/9b28b987646846dafb19cc2d899b892d3bf61923)。本项目将多轮改需求、同型号混发、规格证据和同篮比价写成可单独使用的步骤。代码与文档按 [MIT 许可证](LICENSE) 分发，重新分发技能目录时请附上许可证。
+## Credits & License
+
+The shopping workflow references [this revision of `ai_shopping_assistant_skill`](https://github.com/jade888jgj/ai_shopping_assistant_skill/tree/9b28b987646846dafb19cc2d899b892d3bf61923). This project distills multi-turn requirement changes, mixed-variant SKU shipping ("同型号混发"), spec-evidence checks, and same-basket price comparison into standalone steps. Code and documentation are distributed under the [MIT License](LICENSE); please include the license when redistributing the skill directory.
